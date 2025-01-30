@@ -9,6 +9,7 @@ NAME	=	libasm.so
 
 SRC		=	strlen.asm	\
 			strchr.asm	\
+			memset.asm	\
 
 OBJ		=	$(SRC:.asm=.o)
 
@@ -41,3 +42,4 @@ re: fclean all
 run: re
 	gcc -no-pie main.c -L. -lasm -o test -Wl,-rpath,.
 	./test
+	rm test

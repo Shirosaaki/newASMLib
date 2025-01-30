@@ -16,6 +16,8 @@ strcmp:
     jne .done
     test al, al
     jz .done
+    test bl, bl
+    jz .done
     inc rax
     jmp .compare_loop
 

@@ -7,7 +7,8 @@
 
 NAME	=	libasm.so
 
-SRC		=	strlen.asm
+SRC		=	strlen.asm	\
+			strchr.asm	\
 
 OBJ		=	$(SRC:.asm=.o)
 

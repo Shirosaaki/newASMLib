@@ -10,6 +10,8 @@ NAME	=	libasm.so
 SRC		=	strlen.asm	\
 			strchr.asm	\
 			memset.asm	\
+			memcpy.asm	\
+			strcmp.asm	\
 
 OBJ		=	$(SRC:.asm=.o)
 

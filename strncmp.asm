@@ -1,26 +1,35 @@
+;;
+;; EPITECH PROJECT, 2025
+;; strncmp
+;; File description:
+;; strncmp
+;;
 [bits 64]
 
 section .text
-    global strncmp:function
+    global strncmp
 
 strncmp:
     xor rax, rax
+    xor rcx, rcx
 
-.loop:
-    mov al, byte [rdi + rax]
-    mov bl, byte [rsi + rax]
-    cmp al, bl
-    jne .end
-    test al, al
-    jz .end
-    test bl, bl
-    jz .end
-    inc rax
-    cmp rax, rdx
+.compare_loop:
+    mov al, [rdi + rcx]
+    cmp al, [rsi + rcx]
+    jg .greater
+    jl .less
+    cmp al, 0
     je .end
-    jmp .loop
-
+    inc rcx
+    cmp rcx, rdx
+    jl .compare_loop
+    jmp .end
+.greater:
+    mov rax, 1
+    ret
+.less:
+    mov rax, -1
+    ret
 .end:
-    sub al, bl
-    movsx rax, al
+    xor rax, rax
     ret

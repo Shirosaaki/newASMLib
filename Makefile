@@ -7,43 +7,48 @@
 
 NAME	=	libasm.so
 
-SRC		=	strlen.asm	\
-			strchr.asm	\
-			memset.asm	\
-			memcpy.asm	\
-			strcmp.asm	\
-			memmove.asm	\
-			strncmp.asm	\
+SRC		=	strlen.asm		\
+			strchr.asm		\
+			strrchr.asm		\
+			memset.asm		\
+			memcpy.asm		\
+			strcmp.asm		\
+			memmove.asm		\
+			strncmp.asm		\
+			strcasecmp.asm	\
+			strstr.asm		\
+			strfry.asm		\
+			strpbrk.asm		\
+			strcspn.asm		\
+			ffs.asm			\
+			memfrob.asm		\
+			syscall.asm		\
+			getline.asm		\
 
 OBJ		=	$(SRC:.asm=.o)
 
 ASM		=	nasm
 
-ASMFLAGS	=	-f elf64
+ASMFLAGS	=	-f elf64 
 
-LD	=	ld
+LD		=	ld
 
-LDFLAGS	=	-shared -fPIC
-
-RM	=	rm -rf
-
-all: $(OBJ)
-	$(LD) $(LDFLAGS) -o $(NAME) $(OBJ)
+LDFLAGS		=	-shared
 
 %.o: %.asm
-	$(ASM) $(ASMFLAGS) -o $@ $<
+	$(ASM) $(ASMFLAGS) $< -o $@
+
+all:	$(OBJ)
+	$(LD) $(LDFLAGS) $(OBJ) -o $(NAME)
 
 clean:
-	$(RM) $(OBJ)
+	rm -f $(OBJ)
 
 fclean: clean
-	$(RM) $(NAME)
+	rm -f $(NAME)
 
-re: fclean all
-
-.PHONY: all clean fclean re
+re:	fclean all
 
 run: re
-	gcc -no-pie main.c -L. -lasm -o test -Wl,-rpath,.
+	gcc main.c -L. -lasm -o test -fno-builtin
 	./test
-	rm test

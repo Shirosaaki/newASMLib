@@ -1,27 +1,31 @@
+;;
+;; EPITECH PROJECT, 2025
+;; strchr
+;; File description:
+;; strchr
+;;
 [bits 64]
 
 section .text
-    global strchr:function
+    global strchr
+    global index
 
+index:
 strchr:
-    xor rax, rax
-    push rdi
+    mov rdx, rdi
 
 .loop:
-    movzx rdx, byte [rdi]
-    cmp rdx, 0
-    je .not
-    cmp rdx, rsi
+    cmp byte [rdx], sil
     je .end
-    inc rdi
+    cmp byte [rdx], 0
+    je .not_found
+    inc rdx
     jmp .loop
 
-.not:
-    mov rax, 0
-    pop rdi
+.not_found:
+    xor rax, rax
     ret
 
 .end:
-    mov rax, rdi
-    pop rdi
+    mov rax, rdx
     ret
